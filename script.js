@@ -49,16 +49,20 @@ request.onload=function (){
 
 // (e) Print the country which use US Dollars as currency.
 
-var request = new XMLHttpRequest();
-request.open("GET","https://restcountries.com/v3.1/all");
+var request=new XMLHttpRequest();
+request.open("GET","https://restcountries.com/v2/all");
 request.send();
-request.onload = function () {
-        var data = JSON.parse(this.response);
-        var cur=[];
-        for(i=0;i<data.length;i++){
-            if(data[i].currencies[0].code==="USD")
-            {
-                console.log("name:",data[i].name,"==>",data[i].currencies[0].code)
-            }
+request.onload =function(){
+var result=JSON.parse(request.response);
+console.log(result);
+var res=result.filter((ele)=>ele.currencies !=="United States dollar")
+
+var res1=res.filter((ele)=>{
+    for(var i in ele.currencies){
+        if(ele.currencies[i].name === "United States dollar"){
+            console.log(ele.name)
         }
-    }
+        }
+  })
+
+}
